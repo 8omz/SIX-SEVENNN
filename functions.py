@@ -24,9 +24,11 @@ def sendMsgs(myToken:str,friendID: str, msg: str):
     ,headers = {
         "Authorization": myToken,
         "Content-Type": "application/json"
-    }, json = {"content": msg} )    
+    }, json = {"content": msg} )
+    
     print(response2.status_code)
 
+    friendName = response1.json().get("recipients", [{}])[0].get("username", "Unknown User")    
     user = response2.json().get("author", {}).get("username", "")
-    print(f"{user} is sending a message: {msg}")
+    print(f"{user} is sending a message to {friendName}: {msg}")
 
